@@ -52,7 +52,7 @@ function add_to_crontab()
     crontab -l | grep -v '#NETCYCLE-AUTO-INSTALL$' > $TMPFILE
 
     cat <<EOF >> $TMPFILE
-*/$CHECK_INTERVAL_MINS * * * * bash $LNK >> $NETCYCLEDIR/netcycle.log 2>&1 #NETCYCLE-AUTO-INSTALL
+*/$CHECK_INTERVAL_MINS * * * * bash $LNK | sed "s/^/\$(date): /" >> $NETCYCLEDIR/netcycle.log 2>&1 #NETCYCLE-AUTO-INSTALL
 EOF
 
     crontab $TMPFILE
